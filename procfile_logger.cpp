@@ -12,13 +12,13 @@ using namespace boost::algorithm;
 const vector<string> EMPTY_VECTOR;
 
 procfile_logger::procfile_logger(
-	const std::string procfn, const std::string logfn_fmt,
+	const std::string& procfn, const std::string& logfn_fmt,
 	const int _start_row, const int _num_rows, 
 	const int _start_col, const int _num_cols, 
-	const std::string header,
-	const std::vector<std::string> col_names,
+	const std::string& header,
+	const std::vector<std::string>& col_names,
 	const bool _incremental,
-	enum procfile_direction _dir, const std::string _delim,
+	const enum procfile_direction _dir, const std::string& _delim,
 	const bool multilog) 
 	throw(num_cols_too_large, num_rows_too_large) :
 	procfile(procfn),

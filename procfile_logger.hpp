@@ -19,14 +19,14 @@ extern const std::vector<std::string> EMPTY_VECTOR;
 class procfile_logger {
 public:
 	procfile_logger(
-		const std::string procfn, const std::string logfn_fmt,
+		const std::string& procfn, const std::string& logfn_fmt,
  		const int _start_row, const int _num_rows, 
 		const int _start_col, const int _num_cols, 
-		const std::string header = "", 
-		const std::vector<std::string> col_names = EMPTY_VECTOR,
+		const std::string& header = "", 
+		const std::vector<std::string>& col_names = EMPTY_VECTOR,
 		const bool _incremental = false,
-		enum procfile_direction _dir = PF_DIRECTION_ROW, 
-		const std::string _delim = " ", const bool multifile = true)
+		const enum procfile_direction _dir = PF_DIRECTION_ROW, 
+		const std::string& _delim = " ", const bool multifile = true)
 		throw(num_cols_too_large, num_rows_too_large);
 	void update() throw(num_cols_too_large, num_rows_too_large);
 	void start();
