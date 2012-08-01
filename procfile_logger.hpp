@@ -14,12 +14,17 @@ enum procfile_direction {
 class num_cols_too_large : std::exception {};
 class num_rows_too_large : std::exception {};
 
+extern const std::vector<std::string> EMPTY_VECTOR;
+
 class procfile_logger {
 public:
-	procfile_logger(const std::string procfn, const std::string logfn_fmt,
+	procfile_logger(
+		const std::string procfn, const std::string logfn_fmt,
  		const int _start_row, const int _num_rows, 
 		const int _start_col, const int _num_cols, 
-		const std::string header = "", const bool _incremental = false,
+		const std::string header = "", 
+		const std::vector<std::string> col_names = EMPTY_VECTOR,
+		const bool _incremental = false,
 		enum procfile_direction _dir = PF_DIRECTION_ROW, 
 		const std::string _delim = " ", const bool multifile = true)
 		throw(num_cols_too_large, num_rows_too_large);

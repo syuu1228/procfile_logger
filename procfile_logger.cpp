@@ -9,14 +9,19 @@ using namespace std;
 using namespace boost;
 using namespace boost::algorithm;
 
+const vector<string> EMPTY_VECTOR;
+
 procfile_logger::procfile_logger(
 	const std::string procfn, const std::string logfn_fmt,
 	const int _start_row, const int _num_rows, 
 	const int _start_col, const int _num_cols, 
-	const std::string header, const bool _incremental,
+	const std::string header,
+	const std::vector<std::string> col_names,
+	const bool _incremental,
 	enum procfile_direction _dir, const std::string _delim,
 	const bool multilog) 
 	throw(num_cols_too_large, num_rows_too_large) :
+	procfile(procfn),
 	start_row(_start_row), num_rows(_num_rows),
 	start_col(_start_col), num_cols(_num_cols),
 	incremental(_incremental), dir(_dir), delim(_delim),
@@ -25,8 +30,6 @@ procfile_logger::procfile_logger(
 	prev(num_rows)
 {
 	int x;
-
-	procfile.open(procfn);
 
 	if (incremental) {
 		for (int i = 0; i < num_rows; i++) 
