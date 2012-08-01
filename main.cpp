@@ -4,9 +4,7 @@
 #include <memory>
 #include <boost/program_options.hpp>
 #include "timer_runner.hpp"
-#if notyet
 #include "procwatch_runner.hpp"
-#endif
 #include "interrupts.hpp"
 #include "netstat_tcpext.hpp"
 #include "netstat_ipext.hpp"
@@ -62,10 +60,8 @@ int main(int argc, char **argv)
 			timer_runner runner(loggers, vm);
 			runner.run();
 		}else if (runner_type == "netserver") {
-#if notyet
 			procwatch_runner runner(loggers, vm, "netserver", 1);
 			runner.run();
-#endif
 		}else if (runner_type == "iperf") {
 #if notyet
 #endif

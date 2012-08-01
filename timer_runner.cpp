@@ -13,25 +13,14 @@ timer_runner::timer_runner(
 
 void timer_runner::run()
 {
-	if (terminate != 0) {
-		for (int i = 0; i <= terminate; i++) {
-			for (auto l : loggers) {
-				l->update();
-				if (i == 0)
-					l->start();
-			}
-			sleep(duration);
+	for (int i = 0;
+		terminate != 0 ? i <= terminate : true; i++) {
+		for (auto l : loggers) {
+			l->update();
+			if (i == 0)
+				l->start();
 		}
-	}else{
-		for (int i = 0;; i++) {
-			for (auto l : loggers) {
-				l->update();
-				if (i == 0)
-					l->start();
-			}
-			sleep(duration);
-		}
-
+		sleep(duration);
 	}
 }
 
