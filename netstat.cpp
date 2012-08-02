@@ -14,10 +14,10 @@ static void init_netstat_tcpext_logger(variables_map& vm,
 	string output = vm["output"].as<string>();
 	int nevents = 0;
 	string header;
-	ifstream interrupts("/proc/net/netstat");
+	ifstream netstat("/proc/net/netstat");
 	string line;
 	vector<string> cols;
-	getline(interrupts, line);
+	getline(netstat, line);
 	split(cols, line, is_any_of(" "));
 	for (int i = 1; i < cols.size(); i++) {
 		header += cols[i] + ",";
@@ -47,12 +47,12 @@ static void init_netstat_ipext_logger(variables_map& vm,
 	string output = vm["output"].as<string>();
 	int nevents = 0;
 	string header;
-	ifstream interrupts("/proc/net/netstat");
+	ifstream netstat("/proc/net/netstat");
 	string line;
 	vector<string> cols;
-	getline(interrupts, line);
-	getline(interrupts, line);
-	getline(interrupts, line);
+	getline(netstat, line);
+	getline(netstat, line);
+	getline(netstat, line);
 	split(cols, line, is_any_of(" "));
 	for (int i = 1; i < cols.size(); i++) {
 		header += cols[i] + ",";
