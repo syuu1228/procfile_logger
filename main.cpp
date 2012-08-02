@@ -4,7 +4,6 @@
 #include <memory>
 #include <boost/program_options.hpp>
 #include "timer_runner.hpp"
-#include "procwatch_runner.hpp"
 #include "interrupts.hpp"
 #include "netstat.hpp"
 #include "stat.hpp"
@@ -24,9 +23,6 @@ int main(int argc, char **argv)
 		"target procfiles(interrupts,netstat,stat)")
 		("output,o",
 		value<string>()->default_value("."), "output dir")
-		("runner_type,r",
-		value<string>()->default_value("timer"),
-		"runner type(timer,netserver,iperf)")
 		("duration,d", 
 		value<int>()->default_value(1), "duration sec")
 		("terminate,T", 
@@ -52,20 +48,8 @@ int main(int argc, char **argv)
 				return 1;
 			}
 		}
-		string runner_type = vm["runner_type"].as<string>();
-		if (runner_type == "timer") {
-			timer_runner runner(loggers, vm);
-			runner.run();
-		}else if (runner_type == "netserver") {
-			procwatch_runner runner(loggers, vm, "netserver", 1);
-			runner.run();
-		}else if (runner_type == "iperf") {
-#if notyet
-#endif
-		}else{
-			cout << opt << endl;
-			return 1;
-		}
+		timer_runner runner(loggers, vm);
+		runner.run();
 	}
 
 	return 0;
