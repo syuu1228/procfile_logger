@@ -7,6 +7,7 @@
 #include "interrupts.hpp"
 #include "netstat.hpp"
 #include "stat.hpp"
+#include "schedstat.hpp"
 
 using namespace std;
 using namespace boost::program_options;
@@ -20,7 +21,7 @@ int main(int argc, char **argv)
 		("help,h", "show help")
 		("target,t",
 		value<vector<string> >()->composing(),
-		"target procfiles(interrupts,netstat,stat)")
+		"target procfiles(interrupts,netstat,stat,schedstat)")
 		("output,o",
 		value<string>()->default_value("."), "output dir")
 		("duration,d", 
@@ -43,6 +44,8 @@ int main(int argc, char **argv)
 				init_netstat_logger(vm, loggers);
 			}else if(t == "stat") {
 				init_stat_logger(vm, loggers);
+			}else if(t == "schedstat") {
+				init_schedstat_logger(vm, loggers);
 			}else{
 				cout << opt << endl;
 				return 1;

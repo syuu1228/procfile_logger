@@ -11,8 +11,11 @@ timer_runner::timer_runner(
 {
 };
 
-void timer_runner::run()
+void timer_runner::run() throw(no_logger_registered)
 {
+	if (loggers.size() == 0) 
+		throw no_logger_registered();
+
 	for (int i = 0;
 		terminate != 0 ? i <= terminate : true; i++) {
 		for (auto l : loggers) {
