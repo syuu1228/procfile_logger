@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include<algorithm>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/trim_all.hpp>
@@ -8,7 +9,8 @@ using namespace std;
 using namespace boost::algorithm;
 using namespace boost::program_options;
 
-shared_ptr<procfile_logger> init_interrupts_logger(variables_map& vm)
+void init_interrupts_logger(variables_map& vm,
+	vector<shared_ptr<procfile_logger> >& loggers)
 {
 	string output = vm["output"].as<string>();
 	int ncpus = sysconf(_SC_NPROCESSORS_ONLN);
@@ -16,7 +18,12 @@ shared_ptr<procfile_logger> init_interrupts_logger(variables_map& vm)
 	string header;
 	ifstream interrupts("/proc/interrupts");
 	string line;
+	vector<string> names;
 	getline(interrupts, line);
+	trim_all(line);
+	split(names, line, is_any_of(" "));
+	names.erase(names.begin(), names.begin());
+
 	while(getline(interrupts, line)) {
 		vector<string> cols;
 		trim_all(line);
@@ -29,16 +36,16 @@ shared_ptr<procfile_logger> init_interrupts_logger(variables_map& vm)
 	shared_ptr<procfile_logger> logger(
 		new procfile_logger(
 			"/proc/interrupts",
-			output + "/interrupts%d.log",
+			output + "/interrupts_%s.log",
 			1,
 			nintrs,
 			1,
 			ncpus,
 			header,
-			EMPTY_VECTOR,
+			names,
 			true,
 			PF_DIRECTION_COL
 		));
-	return logger;
+	loggers.push_back(logger);
 }
 

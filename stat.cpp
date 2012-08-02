@@ -4,7 +4,8 @@
 using namespace std;
 using namespace boost::program_options;
 
-shared_ptr<procfile_logger> init_stat_logger(variables_map& vm)
+void init_stat_logger(variables_map& vm,
+	vector<shared_ptr<procfile_logger> >& loggers)
 {
 	string output = vm["output"].as<string>();
 	int ncpus = sysconf(_SC_NPROCESSORS_ONLN);
@@ -20,5 +21,5 @@ shared_ptr<procfile_logger> init_stat_logger(variables_map& vm)
 			EMPTY_VECTOR,
 			true
 		));
-	return logger;
+	loggers.push_back(logger);
 }

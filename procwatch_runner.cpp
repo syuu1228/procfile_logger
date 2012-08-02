@@ -66,7 +66,6 @@ int procwatch_runner::iterate_proc()
 		}
 	}
 
-	cout << "nprocs:" << nprocs << endl;
 	return nprocs;
 }
 

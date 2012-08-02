@@ -23,7 +23,7 @@ public:
  		const int _start_row, const int _num_rows, 
 		const int _start_col, const int _num_cols, 
 		const std::string& header = "", 
-		const std::vector<std::string>& col_names = EMPTY_VECTOR,
+		const std::vector<std::string>& names = EMPTY_VECTOR,
 		const bool _incremental = false,
 		const enum procfile_direction _dir = PF_DIRECTION_ROW, 
 		const std::string& _delim = " ", const bool multifile = true)

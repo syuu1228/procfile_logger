@@ -16,7 +16,7 @@ procfile_logger::procfile_logger(
 	const int _start_row, const int _num_rows, 
 	const int _start_col, const int _num_cols, 
 	const std::string& header,
-	const std::vector<std::string>& col_names,
+	const std::vector<std::string>& names,
 	const bool _incremental,
 	const enum procfile_direction _dir, const std::string& _delim,
 	const bool multilog) 
@@ -48,7 +48,12 @@ procfile_logger::procfile_logger(
 		logfiles[0] << header << endl;
 	}else{
 		for (int i = 0; i < x; i++) {
-			logfiles[i].open((format(logfn_fmt) % i).str());
+			string filename;
+			if (names == EMPTY_VECTOR)
+				filename = (format(logfn_fmt) % i).str();
+			else
+				filename = (format(logfn_fmt) % names[i]).str();
+			logfiles[i].open(filename);
 			logfiles[i] << header << endl;
 		}
 	}

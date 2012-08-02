@@ -6,8 +6,7 @@
 #include "timer_runner.hpp"
 #include "procwatch_runner.hpp"
 #include "interrupts.hpp"
-#include "netstat_tcpext.hpp"
-#include "netstat_ipext.hpp"
+#include "netstat.hpp"
 #include "stat.hpp"
 
 using namespace std;
@@ -22,7 +21,7 @@ int main(int argc, char **argv)
 		("help,h", "show help")
 		("target,t",
 		value<vector<string> >()->composing(),
-		"target procfiles(interrupts,netstat_tcpext,netstat_ipext,stat)")
+		"target procfiles(interrupts,netstat,stat)")
 		("output,o",
 		value<string>()->default_value("."), "output dir")
 		("runner_type,r",
@@ -43,13 +42,11 @@ int main(int argc, char **argv)
 		vector<shared_ptr<procfile_logger> > loggers;
 		for (auto t : targets) {
 			if (t == "interrupts") {
-				loggers.push_back(init_interrupts_logger(vm));
-			}else if(t == "netstat_tcpext") {
-				loggers.push_back(init_netstat_tcpext_logger(vm));
-			}else if(t == "netstat_ipext") {
-				loggers.push_back(init_netstat_ipext_logger(vm));
+				init_interrupts_logger(vm, loggers);
+			}else if(t == "netstat") {
+				init_netstat_logger(vm, loggers);
 			}else if(t == "stat") {
-				loggers.push_back(init_stat_logger(vm));
+				init_stat_logger(vm, loggers);
 			}else{
 				cout << opt << endl;
 				return 1;
