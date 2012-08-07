@@ -9,13 +9,13 @@ using namespace boost::algorithm;
 using namespace boost::program_options;
 
 static void init_schedstat_cpu_logger(variables_map& vm,
-	vector<shared_ptr<procfile_logger> >& loggers, int offset, string name)
+	vector<shared_ptr<global_stats_logger> >& loggers, int offset, string name)
 {
 	string output = vm["output"].as<string>();
 	vector<string> names;
 	names.push_back(name);
-	shared_ptr<procfile_logger> logger(
-		new procfile_logger(
+	shared_ptr<global_stats_logger> logger(
+		new global_stats_logger(
 			"/proc/schedstat",
 			output + "/schedstat_%s.log",
 			offset,
@@ -30,13 +30,13 @@ static void init_schedstat_cpu_logger(variables_map& vm,
 }
 
 static void init_schedstat_domain_logger(variables_map& vm,
-	vector<shared_ptr<procfile_logger> >& loggers, int offset, string name)
+	vector<shared_ptr<global_stats_logger> >& loggers, int offset, string name)
 {
 	string output = vm["output"].as<string>();
 	vector<string> names;
 	names.push_back(name);
-	shared_ptr<procfile_logger> logger(
-		new procfile_logger(
+	shared_ptr<global_stats_logger> logger(
+		new global_stats_logger(
 			"/proc/schedstat",
 			output + "/schedstat_%s.log",
 			offset,
@@ -52,7 +52,7 @@ static void init_schedstat_domain_logger(variables_map& vm,
 
 
 void init_schedstat_logger(variables_map& vm,
-	vector<shared_ptr<procfile_logger> >& logger)
+	vector<shared_ptr<global_stats_logger> >& logger)
 {
 	ifstream schedstat("/proc/schedstat");
 	string line;

@@ -4,7 +4,7 @@ using namespace std;
 using namespace boost::program_options;
 
 timer_runner::timer_runner(
-	vector<shared_ptr<procfile_logger> >& _loggers, variables_map& vm) :
+	vector<shared_ptr<global_stats_logger> >& _loggers, variables_map& vm) :
 	loggers(_loggers),
 	duration(vm["duration"].as<int>()), 
 	terminate(vm["terminate"].as<int>())

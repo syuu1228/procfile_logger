@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 		return 1;
 	}else{
 		vector<string> targets = vm["target"].as<vector<string> >();
-		vector<shared_ptr<procfile_logger> > loggers;
+		vector<shared_ptr<global_stats_logger> > loggers;
 		for (auto t : targets) {
 			if (t == "interrupts") {
 				init_interrupts_logger(vm, loggers);

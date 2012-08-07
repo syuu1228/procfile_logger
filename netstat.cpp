@@ -9,7 +9,7 @@ using namespace boost::algorithm;
 using namespace boost::program_options;
 
 static void init_netstat_tcpext_logger(variables_map& vm,
-	vector<shared_ptr<procfile_logger> >& loggers)
+	vector<shared_ptr<global_stats_logger> >& loggers)
 {
 	string output = vm["output"].as<string>();
 	int nevents = 0;
@@ -23,8 +23,8 @@ static void init_netstat_tcpext_logger(variables_map& vm,
 		header += cols[i] + ",";
 		nevents++;
 	}
-	shared_ptr<procfile_logger> logger(
-		new procfile_logger(
+	shared_ptr<global_stats_logger> logger(
+		new global_stats_logger(
 			"/proc/net/netstat",
 			output + "/netstat_tcpext.log",
 			1,
@@ -42,7 +42,7 @@ static void init_netstat_tcpext_logger(variables_map& vm,
 }
 
 static void init_netstat_ipext_logger(variables_map& vm,
-	vector<shared_ptr<procfile_logger> >& loggers)
+	vector<shared_ptr<global_stats_logger> >& loggers)
 {
 	string output = vm["output"].as<string>();
 	int nevents = 0;
@@ -58,8 +58,8 @@ static void init_netstat_ipext_logger(variables_map& vm,
 		header += cols[i] + ",";
 		nevents++;
 	}
-	shared_ptr<procfile_logger> logger(
-		new procfile_logger(
+	shared_ptr<global_stats_logger> logger(
+		new global_stats_logger(
 			"/proc/net/netstat",
 			output + "/netstat_ipext.log",
 			3,
@@ -77,7 +77,7 @@ static void init_netstat_ipext_logger(variables_map& vm,
 }
 
 void init_netstat_logger(variables_map& vm,
-	vector<shared_ptr<procfile_logger> >& logger)
+	vector<shared_ptr<global_stats_logger> >& logger)
 {
 	init_netstat_tcpext_logger(vm, logger);
 	init_netstat_ipext_logger(vm, logger);

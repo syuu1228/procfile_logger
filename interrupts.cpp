@@ -10,7 +10,7 @@ using namespace boost::algorithm;
 using namespace boost::program_options;
 
 void init_interrupts_logger(variables_map& vm,
-	vector<shared_ptr<procfile_logger> >& loggers)
+	vector<shared_ptr<global_stats_logger> >& loggers)
 {
 	string output = vm["output"].as<string>();
 	int ncpus = sysconf(_SC_NPROCESSORS_ONLN);
@@ -33,8 +33,8 @@ void init_interrupts_logger(variables_map& vm,
 		header += cols[0] + ",";
 		nintrs++;
 	}
-	shared_ptr<procfile_logger> logger(
-		new procfile_logger(
+	shared_ptr<global_stats_logger> logger(
+		new global_stats_logger(
 			"/proc/interrupts",
 			output + "/interrupts_%s.log",
 			1,
