@@ -8,10 +8,14 @@
 
 class proc_sched : public local_stats_logger {
 public:
-	proc_sched(const std::string &logfn);
+	proc_sched(
+		const std::string &logfn,
+		const int _start_row, const int _num_rows,
+		const bool _incremental = true);
 	virtual void handle_process(boost::filesystem::directory_iterator it);
 	virtual void update();
 private:
+	const int start_row, num_rows;
 	std::ofstream logfile;
 	std::vector<long> prev, curr;
 };
