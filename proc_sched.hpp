@@ -16,6 +16,7 @@ public:
 	virtual void update();
 private:
 	const int start_row, num_rows;
+	const bool incremental;
 	std::ofstream logfile;
 	std::vector<long> prev, curr;
 };
