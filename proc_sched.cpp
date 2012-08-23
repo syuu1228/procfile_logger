@@ -15,17 +15,17 @@ void init_proc_sched_logger(variables_map& vm,
 	string output = vm["output"].as<string>();
 	std::shared_ptr<local_stats_logger> l1(
 		new proc_sched(
-			output + "/proc_sched_a.log",
+			output + "/proc_sched_a.csv",
 			17, 15
 		));
 	std::shared_ptr<local_stats_logger> l2(
 		new proc_sched(
-			output + "/proc_sched_b.log",
+			output + "/proc_sched_b.csv",
 			34, 3
 		));
 	std::shared_ptr<local_stats_logger> l3(
 		new proc_sched(
-			output + "/proc_sched_c.log",
+			output + "/proc_sched_c.csv",
 			37, 4, false
 		));
 

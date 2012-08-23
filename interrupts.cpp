@@ -32,7 +32,7 @@ void init_interrupts_logger(variables_map& vm,
 	shared_ptr<global_stats_logger> logger(
 		new global_stats_logger(
 			"/proc/interrupts",
-			output + "/interrupts%d.log",
+			output + "/interrupts%d.csv",
 			1,
 			nintrs,
 			1,

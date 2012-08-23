@@ -12,7 +12,7 @@ void init_stat_logger(variables_map& vm,
 	shared_ptr<global_stats_logger> logger(
 		new global_stats_logger(
 			"/proc/stat",
-			output + "/stat%d.log",
+			output + "/stat%d.csv",
 			1,
 			ncpus,
 			1,

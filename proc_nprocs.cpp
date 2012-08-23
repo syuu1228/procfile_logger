@@ -15,7 +15,7 @@ void init_proc_nprocs_logger(variables_map& vm,
 	string output = vm["output"].as<string>();
 	std::shared_ptr<local_stats_logger> logger(
 		new proc_nprocs(
-			output + "/proc_nprocs.log"
+			output + "/proc_nprocs.csv"
 		));
 	loggers.push_back(logger);
 }

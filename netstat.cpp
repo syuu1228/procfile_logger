@@ -26,7 +26,7 @@ static void init_netstat_tcpext_logger(variables_map& vm,
 	shared_ptr<global_stats_logger> logger(
 		new global_stats_logger(
 			"/proc/net/netstat",
-			output + "/netstat_tcpext.log",
+			output + "/netstat_tcpext.csv",
 			1,
 			1,
 			1,
@@ -61,7 +61,7 @@ static void init_netstat_ipext_logger(variables_map& vm,
 	shared_ptr<global_stats_logger> logger(
 		new global_stats_logger(
 			"/proc/net/netstat",
-			output + "/netstat_ipext.log",
+			output + "/netstat_ipext.csv",
 			3,
 			1,
 			1,

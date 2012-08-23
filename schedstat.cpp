@@ -17,7 +17,7 @@ static void init_schedstat_cpu_logger(variables_map& vm,
 	shared_ptr<global_stats_logger> logger(
 		new global_stats_logger(
 			"/proc/schedstat",
-			output + "/schedstat_%s.log",
+			output + "/schedstat_%s.csv",
 			offset,
 			1,
 			1,
@@ -38,7 +38,7 @@ static void init_schedstat_domain_logger(variables_map& vm,
 	shared_ptr<global_stats_logger> logger(
 		new global_stats_logger(
 			"/proc/schedstat",
-			output + "/schedstat_%s.log",
+			output + "/schedstat_%s.csv",
 			offset,
 			1,
 			2,
