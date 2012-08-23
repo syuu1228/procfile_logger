@@ -1,19 +1,15 @@
-require 'rubygems'
-require 'facter'
 require 'csv'
 
-Facter.loadfacts
-NCPUS = Facter.processorcount.to_i
-
-if ARGV.size < 3
-	puts "sum_row.rb [percpu_logs] [sum_logs] [header]"
+if ARGV.size < 4
+	puts "sum_row.rb [percpu_logs] [sum_logs] [header] [nfiles]"
 	exit 1
 end
 
+NFILES=ARGV[3].to_i
 percpu_logs = []
 sum_logs = []
 
-(0..NCPUS - 1).each do |cpu|
+(0..NFILES - 1).each do |cpu|
 	percpu_logs[cpu] = CSV.open(sprintf(ARGV[0], cpu))
 	percpu_logs[cpu].gets
 	sum_logs[cpu] = File.open(sprintf(ARGV[1], cpu), mode = "w")
@@ -24,7 +20,7 @@ while true
 	if percpu_logs[0].eof?
 		break
 	end
-	(0..NCPUS - 1).each do |cpu|
+	(0..NFILES - 1).each do |cpu|
 		sum = 0
 		percpu_logs[cpu].gets.each do |v|
 			sum += v.to_i
@@ -33,6 +29,6 @@ while true
 	end
 end
 
-(0..NCPUS - 1).each do |cpu|
+(0..NFILES - 1).each do |cpu|
 	sum_logs[cpu].close
 end
