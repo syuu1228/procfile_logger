@@ -33,6 +33,13 @@ ruby sum_cpus.rb $LOGDIR/schedstat_domain%d.log $LOGDIR/sum_schedstat_domain.log
 ruby sum_col.rb $LOGDIR/sum_schedstat_domain.log $LOGDIR/sumall_schedstat_domain.log
 ruby bias_cpus.rb $LOGDIR/schedstat_domain%d.log $LOGDIR/bias_schedstat_domain.log $NCPUS
 
+
+for i in `seq 0 $(($NDOMAINS - 1))`; do
+	ruby sum_cpus.rb $LOGDIR/schedstat_cpu%d-domain${i}.log $LOGDIR/sum_schedstat_domain${i}.log $NCPUS
+	ruby sum_col.rb $LOGDIR/sum_schedstat_domain${i}.log $LOGDIR/sumall_schedstat_domain${i}.log
+	ruby bias_cpus.rb $LOGDIR/schedstat_cpu%d-domain${i}.log $LOGDIR/bias_schedstat_domain${i}.log $NCPUS
+done
+
 ruby sum_cpus.rb $LOGDIR/stat%d.log $LOGDIR/sum_stat.log $NCPUS
 ruby sum_col.rb $LOGDIR/sum_stat.log $LOGDIR/sumall_stat.log
 ruby bias_cpus.rb $LOGDIR/stat%d.log $LOGDIR/bias_stat.log $NCPUS
