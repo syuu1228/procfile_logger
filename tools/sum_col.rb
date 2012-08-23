@@ -5,14 +5,10 @@ if ARGV.size < 2
 	exit 1
 end
 
+sum = []
 log = CSV.open(ARGV[0])
 sum_log = File.open(ARGV[1], mode = "w")
-sum = []
-
-log.gets.each do |v|
-	sum_log << v << ","
-end
-sum_log << "\n"
+sum_log << log.gets.to_csv << "\n"
 
 while true
 	if log.eof?
