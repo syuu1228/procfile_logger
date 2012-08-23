@@ -29,7 +29,7 @@ while true
 	(0..NFILES - 1).each do |cpu|
 		lines[cpu] = percpu_logs[cpu].gets
 	end
-	(0..lines[0].size - 1).each do |j|
+	(0..header.size - 1).each do |j|
 		sum = 0
 		(0..NFILES - 1).each do |i|
 			val = lines[i][j].to_i
