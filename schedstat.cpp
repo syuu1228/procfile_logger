@@ -22,7 +22,7 @@ static void init_schedstat_cpu_logger(variables_map& vm,
 			1,
 			1,
 			9,
-			"yld_count,sched_count,sched_goidle,ttwu_count,ttwu_local,rq_cpu_time,rq_sched_info.run_delay,rq_sched_info.pcount",
+			"yld_count,zero,sched_count,sched_goidle,ttwu_count,ttwu_local,rq_cpu_time,rq_sched_info.run_delay,rq_sched_info.pcount",
 			names,
 			true
 		));
@@ -43,7 +43,10 @@ static void init_schedstat_domain_logger(variables_map& vm,
 			1,
 			2,
 			36,
-			"lb_count,lb_balanced,lb_failed,lb_imbalance,lb_gained,lb_hot_gained,lb_nobusyq,lb_nobusyg,alb_count,alb_failed,alb_pushed,sbe_count,sbe_balanced,sbe_pushed,sbf_count,sbf_balanced,sbf_pushed,ttwu_wake_remote,ttwu_move_affine,ttwu_move_balance",
+			"lb_count[CPU_IDLE],lb_balanced[CPU_IDLE],lb_failed[CPU_IDLE],lb_imbalance[CPU_IDLE],lb_gained[CPU_IDLE],lb_hot_gained[CPU_IDLE],lb_nobusyq[CPU_IDLE],lb_nobusyg[CPU_IDLE],"
+			"lb_count[CPU_NOT_IDLE],lb_balanced[CPU_NOT_IDLE],lb_failed[CPU_NOT_IDLE],lb_imbalance[CPU_NOT_IDLE],lb_gained[CPU_NOT_IDLE],lb_hot_gained[CPU_NOT_IDLE],lb_nobusyq[CPU_NOT_IDLE],lb_nobusyg[CPU_NOT_IDLE],"
+			"lb_count[CPU_NEWLY_IDLE],lb_balanced[CPU_NEWLY_IDLE],lb_failed[CPU_NEWLY_IDLE],lb_imbalance[CPU_NEWLY_IDLE],lb_gained[CPU_NEWLY_IDLE],lb_hot_gained[CPU_NEWLY_IDLE],lb_nobusyq[CPU_NEWLY_IDLE],lb_nobusyg[CPU_NEWLY_IDLE],"
+			"alb_count,alb_failed,alb_pushed,sbe_count,sbe_balanced,sbe_pushed,sbf_count,sbf_balanced,sbf_pushed,ttwu_wake_remote,ttwu_move_affine,ttwu_move_balance",
 			names,
 			true
 		));
