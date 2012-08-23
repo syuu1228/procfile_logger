@@ -21,8 +21,9 @@ void init_proc_nprocs_logger(variables_map& vm,
 }
 
 proc_nprocs::proc_nprocs(const std::string &logfn) : 
-	logfile(logfn)
+	curr(0), logfile(logfn)
 {
+	logfile << "nprocs" << endl;
 }
 
 void proc_nprocs::handle_process(directory_iterator it)
@@ -32,6 +33,9 @@ void proc_nprocs::handle_process(directory_iterator it)
 
 void proc_nprocs::update()
 {
+	if (!started)
+		return;
+
 	logfile << curr << endl;
 	curr = 0;
 }

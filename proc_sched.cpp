@@ -79,13 +79,20 @@ void proc_sched::handle_process(directory_iterator it)
 
 void proc_sched::update()
 {
+	if (!incremental && !started)
+		return;
+	
 	for (int i = 0; i < curr.size(); i++) {
-		if (incremental) {
-			logfile << curr[i] - prev[i] << ",";
-			prev[i] = curr[i];
-		}else{
-			logfile << curr[i] << ",";
+		if (started) {
+			if (incremental) {
+				logfile << curr[i] - prev[i] << ",";
+			}else{
+				logfile << curr[i] << ",";
+			}
 		}
+		if (incremental)
+			prev[i] = curr[i];
 	}
-	logfile << endl;
+	if (started)
+		logfile << endl;
 }

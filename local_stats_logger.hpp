@@ -14,7 +14,7 @@ public:
 	void inline start() {
 		started = true;
 	}
-private:
+protected:
 	bool started;
 };
 

@@ -12,8 +12,8 @@ public:
 		const std::string &logfn,
 		const int _start_row, const int _num_rows,
 		const bool _incremental = true);
-	virtual void handle_process(boost::filesystem::directory_iterator it);
-	virtual void update();
+	void handle_process(boost::filesystem::directory_iterator it);
+	void update();
 private:
 	const int start_row, num_rows;
 	const bool incremental;
