@@ -18,6 +18,8 @@ header = []
 	end
 end
 
+header.delete_at(header.size - 1) if (header[header.size - 1] == nil)
+
 bias_log = File.open(ARGV[1], mode = "w")
 bias_log << header.to_csv
 
