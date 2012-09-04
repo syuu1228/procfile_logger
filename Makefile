@@ -1,5 +1,5 @@
 CXXFLAGS=-std=c++0x -g
-CXX=clang++
+CXX=g++
 
 all: procfile_logger
 clean:
