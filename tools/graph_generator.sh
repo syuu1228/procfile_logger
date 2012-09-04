@@ -40,7 +40,7 @@ graph_line()
 NCPUS=`cat /proc/cpuinfo |grep processor|wc -l`
 NDOMAINS=`grep domain /proc/schedstat |awk '{print $1}'|sort|uniq|wc -l`
 
-for i in `seq 0 $(($NDOMAINS - 1))`; do
+for i in `seq 0 $(($NCPUS - 1))`; do
 	graph_line merged_interrupts$i
 	graph_line schedstat_cpu$i
 	for j in `seq 0 $(($NDOMAINS - 1))`; do
