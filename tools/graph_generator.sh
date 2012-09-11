@@ -37,15 +37,32 @@ graph_line()
 	ruby graph_line.rb $NAME $BASEDIR/$NAME `get_csv_names $NAME` $TARGETS
 }
 
+percpu_graph_html()
+{
+	ruby percpu_graph_html.rb $1 > $BASEDIR/percpu_graph$1.html
+}
+
+sum_graph_html()
+{
+	cp sum_graph.html $BASEDIR/
+}
+
+bias_graph_html()
+{
+	cp bias_graph.html $BASEDIR/
+}
+
 NCPUS=`cat /proc/cpuinfo |grep processor|wc -l`
 NDOMAINS=`grep domain /proc/schedstat |awk '{print $1}'|sort|uniq|wc -l`
 
 for i in `seq 0 $(($NCPUS - 1))`; do
+	graph_line stat$i
 	graph_line merged_interrupts$i
 	graph_line schedstat_cpu$i
 	for j in `seq 0 $(($NDOMAINS - 1))`; do
 		graph_line schedstat_cpu$i-domain$j
 	done
+	percpu_graph_html $i
 done
 graph_line sum_merged_interrupts
 graph_line bias_merged_interrupts
@@ -79,3 +96,6 @@ graph_line sum_stat
 graph_line bias_stat
 graph_bar sumall_stat
 graph_bar biasall_stat
+
+sum_graph_html
+bias_graph_html
