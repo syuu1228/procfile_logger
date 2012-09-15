@@ -8,6 +8,7 @@
 #include "local_stats_logger.hpp"
 
 class no_logger_registered : std::exception {};
+class sighandler_register_error : std::exception {};
 
 class timer_runner {
 public:
@@ -16,7 +17,8 @@ public:
 		std::vector<std::shared_ptr<local_stats_logger> >& _lloggers,
 		boost::program_options::variables_map& vm);
 
-	void run() throw(no_logger_registered);
+	void run() throw(no_logger_registered, sighandler_register_error)
+;
 
 private:
 	const std::vector<std::shared_ptr<global_stats_logger> >& gloggers;

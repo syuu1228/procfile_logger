@@ -5,8 +5,9 @@ Primary target is mersureing various kernel parameter when network heavy load oc
 
 
 * Requirement libraries
-C++: Boost
-Ruby: Gruff
+Compiler: g++-4.7.1
+C++: boost-1.5.1
+Ruby: gruf-0.3.6
 
 
 * Usage examples
@@ -21,7 +22,7 @@ node b$ ps ax | grep -c netserver
 
 4. Execute logger
 node b$ mkdir /tmp/log1
-node b$ ./procfile_logger/procfile_logger -g interrupts -g netstat -g stat -g schedstat -p netserver -l sched -l nprocs -o /tmp/log1 -d 1 -T 180
+node b$ ./procfile_logger/procfile_logger -g interrupts -g netstat -g stat -g schedstat -g coretemp -p netserver -l sched -l nprocs -o /tmp/log1 -d 1 -T 180
 
 5. Execute log_analyzer.sh
 node b$ bash ./procfile_logger/tools/log_analyzer.sh /tmp/log1

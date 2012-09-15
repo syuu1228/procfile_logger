@@ -26,7 +26,7 @@ public:
 		const std::vector<std::string>& names = EMPTY_VECTOR,
 		const bool _incremental = false,
 		const enum procfile_direction _dir = PF_DIRECTION_ROW, 
-		const std::string& _delim = " ", const bool multifile = true)
+		const std::string& _delim = " ", const bool multilog = true)
 		throw(num_cols_too_large, num_rows_too_large);
 	void update() throw(num_cols_too_large, num_rows_too_large);
 	void start();

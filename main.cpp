@@ -8,6 +8,7 @@
 #include "netstat.hpp"
 #include "stat.hpp"
 #include "schedstat.hpp"
+#include "coretemp.hpp"
 #include "proc_sched.hpp"
 #include "proc_nprocs.hpp"
 
@@ -25,7 +26,7 @@ int main(int argc, char **argv)
 		("help,h", "show help")
 		("global_target,g",
 		value<vector<string> >()->composing(),
-		"target procfiles(interrupts,netstat,stat,schedstat)")
+		"target procfiles(interrupts,netstat,stat,schedstat,coretemp)")
 		("process_name,p",
 		value<string>(),
 		"process name filter for local_target(required for local_target)")
@@ -58,6 +59,8 @@ int main(int argc, char **argv)
 				init_stat_logger(vm, gloggers);
 			}else if(t == "schedstat") {
 				init_schedstat_logger(vm, gloggers);
+			}else if(t == "coretemp") {
+				init_coretemp_logger(vm, gloggers);
 			}else{
 				cout << opt << endl;
 				return 1;

@@ -1,8 +1,15 @@
 #include "timer_runner.hpp"
+#include <signal.h>
 
 using namespace std;
 using namespace boost;
 using namespace boost::program_options;
+
+static volatile sig_atomic_t signaled = 0;
+
+static void sig_handler(int signum) {
+	signaled = 1;
+}
 
 timer_runner::timer_runner(
 	vector<std::shared_ptr<global_stats_logger> >& _gloggers, 
@@ -16,13 +23,16 @@ timer_runner::timer_runner(
 {
 };
 
-void timer_runner::run() throw(no_logger_registered)
+void timer_runner::run() throw(no_logger_registered, sighandler_register_error)
 {
 	if (lloggers.size() == 0 && gloggers.size() == 0) 
 		throw no_logger_registered();
 
+	if (signal(SIGINT, sig_handler) == SIG_ERR)
+		throw sighandler_register_error();
+
 	for (int i = 0;
-		terminate != 0 ? i <= terminate : true; i++) {
+		terminate != 0 ? i <= terminate && !signaled : !signaled; i++) {
 		if (comm != "") {
 			filesystem::path proc("/proc");
 			filesystem::directory_iterator end;
