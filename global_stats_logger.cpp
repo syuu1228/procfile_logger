@@ -58,6 +58,12 @@ global_stats_logger::global_stats_logger(
 		}
 	}
 }
+
+global_stats_logger::~global_stats_logger()
+{
+	for (auto& l : logfiles)
+		l.close();
+}
 		
 void global_stats_logger::update() throw(num_cols_too_large, num_rows_too_large)
 {

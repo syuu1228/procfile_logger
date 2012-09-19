@@ -11,6 +11,7 @@ public:
 	proc_nprocs(const std::string &logfn);
 	virtual void handle_process(boost::filesystem::directory_iterator it);
 	virtual void update();
+	~proc_nprocs();
 private:
 	std::ofstream logfile;
 	int curr;

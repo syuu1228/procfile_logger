@@ -28,6 +28,7 @@ public:
 		const enum procfile_direction _dir = PF_DIRECTION_ROW, 
 		const std::string& _delim = " ", const bool multilog = true)
 		throw(num_cols_too_large, num_rows_too_large);
+	~global_stats_logger();
 	void update() throw(num_cols_too_large, num_rows_too_large);
 	void start();
 private:

@@ -58,6 +58,11 @@ proc_sched::proc_sched(
 	logfile << endl;
 }
 
+proc_sched::~proc_sched()
+{
+	logfile.close();
+}
+
 void proc_sched::handle_process(directory_iterator it)
 {
 	ifstream schedfile(it->path().string() + "/sched");

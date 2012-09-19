@@ -14,6 +14,7 @@ public:
 		const bool _incremental = true);
 	void handle_process(boost::filesystem::directory_iterator it);
 	void update();
+	~proc_sched();
 private:
 	const int start_row, num_rows;
 	const bool incremental;

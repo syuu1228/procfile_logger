@@ -34,28 +34,32 @@ void timer_runner::run() throw(no_logger_registered, sighandler_register_error)
 	for (int i = 0;
 		terminate != 0 ? i <= terminate && !signaled : !signaled; i++) {
 		if (comm != "") {
-			filesystem::path proc("/proc");
+			filesystem::path procfs("/proc");
 			filesystem::directory_iterator end;
 
-			for (filesystem::directory_iterator it(proc);
-				it != end; ++it) {
-				const string filename = it->path().filename().string();
+			for (filesystem::directory_iterator proc(procfs);
+				proc != end; ++proc) {
+				const string filename = proc->path().filename().string();
 				bool is_numeric = false;
 				try {
 					stoi(filename);
 					is_numeric = true;
 				} catch (invalid_argument) {}
 	
-				if (filesystem::is_directory(*it) && is_numeric) {
-					ifstream comm_file(it->path().string() + "/comm");
+				if (filesystem::is_directory(*proc) && is_numeric) {
+					ifstream comm_file(proc->path().string() + "/comm");
 					string val;
 	
 					comm_file >> val;
 					if (val != comm)
 						continue;
-					
-					for (auto l : lloggers) 
-						l->handle_process(it);
+
+					filesystem::path task(proc->path().string() + "/task");
+					for (filesystem::directory_iterator thread(task);
+						thread != end; ++thread) {
+						for (auto l : lloggers) 
+							l->handle_process(thread);
+					}
 				}
 			}
 

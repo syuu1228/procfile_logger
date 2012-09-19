@@ -26,6 +26,11 @@ proc_nprocs::proc_nprocs(const std::string &logfn) :
 	logfile << "nprocs" << endl;
 }
 
+proc_nprocs::~proc_nprocs()
+{
+	logfile.close();
+}
+
 void proc_nprocs::handle_process(directory_iterator it)
 {
 	++curr;
@@ -33,9 +38,7 @@ void proc_nprocs::handle_process(directory_iterator it)
 
 void proc_nprocs::update()
 {
-	if (!started)
-		return;
-
-	logfile << curr << endl;
+	if (started)
+		logfile << curr << endl;
 	curr = 0;
 }
