@@ -68,9 +68,6 @@ log_analyze
 sum_graph_html
 bias_graph_html
 
-sum_graph_html
-bias_graph_html
-
 for i in `seq 0 $(($NCPUS - 1))`; do
 	graph_line stat$i
 	graph_line merged_interrupts$i
