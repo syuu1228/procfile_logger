@@ -24,10 +24,7 @@ node b$ ps ax | grep -c netserver
 node b$ mkdir /tmp/log1
 node b$ ./procfile_logger/procfile_logger -g interrupts -g netstat -g stat -g schedstat -g coretemp -p netserver -l sched -l nprocs -o /tmp/log1 -d 1 -T 180
 
-5. Execute log_analyzer.sh
-node b$ bash ./procfile_logger/tools/log_analyzer.sh /tmp/log1
+5. Loop 4
 
-6. Loop 4-5
-
-7. Execute graph_generator.sh
+6. Execute graph_generator.sh
 node b$ bash ./procfile_logger/tools/graph_generator.sh /tmp log1,log2,log3

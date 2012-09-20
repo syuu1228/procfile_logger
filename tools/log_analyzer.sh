@@ -10,7 +10,7 @@ fi
 NCPUS=`cat /proc/cpuinfo |grep processor|wc -l`
 NDOMAINS=`ls $LOGDIR/schedstat_cpu0-domain*|wc -l`
 
-ruby sum_row.rb $LOGDIR/interrupts%d.csv $LOGDIR/merged_interrupts interrupts%d.csv $NCPUS
+ruby sum_row.rb $LOGDIR/interrupts%d.csv $LOGDIR/merged_interrupts%d.csv merged_interrupts $NCPUS
 ruby sum_cpus.rb $LOGDIR/merged_interrupts%d.csv $LOGDIR/sum_merged_interrupts.csv $NCPUS
 ruby sum_col.rb $LOGDIR/sum_merged_interrupts.csv $LOGDIR/sumall_merged_interrupts.csv
 ruby bias_cpus.rb $LOGDIR/merged_interrupts%d.csv $LOGDIR/bias_merged_interrupts.csv $NCPUS

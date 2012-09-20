@@ -16,7 +16,7 @@ while true
 	end
 	line = log.gets
 	line.delete_at(line.size - 1) if (line[line.size - 1] == nil)
-	(0..line.size - 1).each do |i|
+	for i in 0...line.size do 
 		sum[i] = 0 if sum[i] == nil
 		sum[i] += line[i].to_i
 	end

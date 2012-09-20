@@ -9,6 +9,15 @@ if [ "$BASEDIR" = "" -o "$TARGETS" = "" ];then
 	exit 1
 fi
 
+log_analyze()
+{
+	NAME=$1
+	for i in $TARGETS_ARRAY
+	do
+		sh log_analyzer.sh $BASEDIR/$i/
+	done
+}
+
 get_csv_array()
 {
 	NAME=$1
@@ -55,6 +64,13 @@ bias_graph_html()
 NCPUS=`cat /proc/cpuinfo |grep processor|wc -l`
 NDOMAINS=`grep domain /proc/schedstat |awk '{print $1}'|sort|uniq|wc -l`
 
+log_analyze
+sum_graph_html
+bias_graph_html
+
+sum_graph_html
+bias_graph_html
+
 for i in `seq 0 $(($NCPUS - 1))`; do
 	graph_line stat$i
 	graph_line merged_interrupts$i
@@ -96,6 +112,3 @@ graph_line sum_stat
 graph_line bias_stat
 graph_bar sumall_stat
 graph_bar biasall_stat
-
-sum_graph_html
-bias_graph_html

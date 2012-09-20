@@ -11,7 +11,7 @@ NROWS=ARGV[3].to_i
 percpu_logs = []
 sum_logs = []
 
-(0..NFILES - 1).each do |cpu|
+for cpu in 0...NFILES do
 	percpu_logs[cpu] = CSV.open(sprintf(ARGV[0], cpu))
 	percpu_logs[cpu].gets
 	sum_logs[cpu] = File.open(sprintf(ARGV[1], cpu), mode = "w")
@@ -22,17 +22,17 @@ while true
 	if percpu_logs[0].eof?
 		break
 	end
-	(0..NFILES - 1).each do |cpu|
+	for cpu in 0...NFILES do
 		sum = 0
 		lines = percpu_logs[cpu].gets
 		lines.delete_at(lines.size - 1) if (lines[lines.size - 1] == nil)
-		(OFFSET..OFFSET + NROWS - 1).each do |i|
+		for i in OFFSET...OFFSET + NROWS do
 			sum += lines[i].to_i
 		end
 		sum_logs[cpu] << sum << "\n"
 	end
 end
 
-(0..NFILES - 1).each do |cpu|
+for cpu in 0...NFILES do
 	sum_logs[cpu].close
 end

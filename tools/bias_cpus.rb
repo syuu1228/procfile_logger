@@ -9,7 +9,7 @@ NFILES=ARGV[2].to_i
 percpu_logs = []
 header = []
 
-(0..NFILES - 1).each do |cpu|
+for cpu in 0...NFILES do
 	percpu_logs[cpu] = CSV.open(sprintf(ARGV[0], cpu))
 	if cpu == 0
 		header = percpu_logs[cpu].gets
@@ -28,13 +28,13 @@ while true
 	if percpu_logs[0].eof?
 		break
 	end
-	(0..NFILES - 1).each do |cpu|
+	for cpu in 0...NFILES do
 		lines[cpu] = percpu_logs[cpu].gets
 	end
-	(0..header.size - 1).each do |j|
+	for j in 0...header.size do
 		min = -1
 		max = 0
-		(0..NFILES - 1).each do |i|
+		for i in 0...NFILES do
 			val = lines[i][j].to_i
 			min = val if min == -1 || min > val
 			max = val if max < val

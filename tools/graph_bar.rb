@@ -15,7 +15,7 @@ logs = []
 header = []
 data = []
 
-(0..logpaths.size - 1).each do |i|
+for i in 0...logpaths.size do
 	logs[i] = CSV.open(logpaths[i])
 	if i == 0
 		header = logs[i].gets
@@ -25,11 +25,11 @@ data = []
 end
 header.delete_at(header.size - 1) if header[header.size - 1] == nil
 max = Array.new(header.size, 0)
-(0..logs.size - 1).each do |i|
+for i in 0...logs.size do
 	data[i] = []
 	line = logs[i].gets
 	line.delete_at(line.size - 1) if line[line.size - 1] == nil
-	(0..line.size - 1).each do |j|
+	for j in 0...line.size do
 		v = line[j].to_i
 		data[i][j] = v
 		max[j] = v if max[j] < v
@@ -37,13 +37,13 @@ max = Array.new(header.size, 0)
 	logs[i].close
 end
 
-(0..header.size - 1).each do |j|
+for j in 0...header.size do
 	g = Gruff::Bar.new
 	g.title = title
 	g.sort = false
 	g.minimum_value = 0
 	g.maximum_value = max[j]
-	(0..logs.size - 1).each do |i|
+	for i in 0...logs.size do
 		g.data(names[i], data[i][j])
 	end
 	g.labels = {0 => header[j]}

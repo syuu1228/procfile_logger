@@ -10,7 +10,7 @@ peer = ARGV[1]
 duration = ARGV[2]
 tempfile = Tempfile::new("netperf", "/tmp");
 
-(1 .. number).each do |i|
+for i in 1..number do
 	Process.fork do
 		exec "netperf -v2 -H #{peer} -t TCP_RR -P 0 -c -C -l #{duration} -- -m 32K -M 32K -s 256K -S 256K >> #{tempfile.path}.#{i}"
 	end
@@ -20,7 +20,7 @@ sum_lat = 0.0
 sum_tps = 0.0
 sum_loc_cpu = 0.0
 sum_rem_cpu = 0.0
-(1 .. number).each do |i|
+for i in 1..number do
 	log = CSV.open("#{tempfile.path}.#{i}", mode = "r", options = {:col_sep => ' '})
 	j = 0
 	tps = 0.0
