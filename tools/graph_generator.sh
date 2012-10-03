@@ -109,3 +109,5 @@ graph_line sum_stat
 graph_line bias_stat
 graph_bar sumall_stat
 graph_bar biasall_stat
+graph_bar sum_sha
+graph_bar bias_sha

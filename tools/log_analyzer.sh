@@ -48,3 +48,6 @@ ruby sum_cpus.rb $LOGDIR/stat%d.csv $LOGDIR/sum_stat.csv $NCPUS
 ruby sum_col.rb $LOGDIR/sum_stat.csv $LOGDIR/sumall_stat.csv
 ruby bias_cpus.rb $LOGDIR/stat%d.csv $LOGDIR/bias_stat.csv $NCPUS
 ruby sum_col.rb $LOGDIR/bias_stat.csv $LOGDIR/biasall_stat.csv
+
+ruby sum_cpus.rb $LOGDIR/sha%d.csv $LOGDIR/sum_sha.csv $NCPUS
+ruby bias_cpus.rb $LOGDIR/sha%d.csv $LOGDIR/bias_sha.csv $NCPUS

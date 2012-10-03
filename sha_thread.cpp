@@ -21,6 +21,7 @@ void sha_thread_func(variables_map& vm, int cpu)
 	ofstream logfile((format("%s/sha%d.csv") % output % cpu).str());
 
 	try {
+		logfile << "nexecuted" << endl;
 		CPU_ZERO(&mask);
 		CPU_SET(cpu, &mask);
 		if (sched_setaffinity(0, sizeof(mask), &mask) == -1) {
