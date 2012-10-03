@@ -14,9 +14,11 @@ static void sig_handler(int signum) {
 timer_runner::timer_runner(
 	vector<std::shared_ptr<global_stats_logger> >& _gloggers, 
 	vector<std::shared_ptr<local_stats_logger> >& _lloggers, 
+	vector<std::shared_ptr<thread> >& _threads,
 	variables_map& vm) :
 	gloggers(_gloggers),
 	lloggers(_lloggers),
+	threads(_threads),
 	duration(vm["duration"].as<int>()), 
 	terminate(vm["terminate"].as<int>()),
 	comm(vm.count("process_name") ? vm["process_name"].as<string>() : "")
@@ -77,6 +79,10 @@ void timer_runner::run() throw(no_logger_registered, sighandler_register_error)
 		}
 		sleep(duration);
 	}
+	for (auto t : threads)
+		t->interrupt();
+	for (auto t : threads)
+		t->join();
 }
 
 

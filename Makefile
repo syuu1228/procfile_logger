@@ -8,5 +8,5 @@ clean:
 .cpp.o:
 	$(CXX) $(CXXFLAGS) -c $<
 
-procfile_logger: global_stats_logger.o main.o interrupts.o netstat.o stat.o schedstat.o proc_sched.o proc_nprocs.o timer_runner.o
-	$(CXX) -o $@ $^ -lboost_filesystem -lboost_system -lboost_program_options
+procfile_logger: global_stats_logger.o main.o interrupts.o netstat.o stat.o schedstat.o proc_sched.o proc_nprocs.o timer_runner.o sha_thread.o sha2.o
+	$(CXX) -o $@ $^ -lboost_filesystem -lboost_system -lboost_program_options -lboost_thread

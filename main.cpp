@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include <boost/program_options.hpp>
+#include <boost/thread/thread.hpp>
 #include "timer_runner.hpp"
 #include "interrupts.hpp"
 #include "netstat.hpp"
@@ -10,16 +11,19 @@
 #include "schedstat.hpp"
 #include "proc_sched.hpp"
 #include "proc_nprocs.hpp"
+#include "sha_thread.hpp"
 
 using namespace std;
+using namespace boost;
 using namespace boost::program_options;
 
 int main(int argc, char **argv)
 {
 	options_description opt("options");
 	variables_map vm;
-	vector<shared_ptr<global_stats_logger> > gloggers;
-	vector<shared_ptr<local_stats_logger> > lloggers;
+	vector<std::shared_ptr<global_stats_logger> > gloggers;
+	vector<std::shared_ptr<local_stats_logger> > lloggers;
+	vector<std::shared_ptr<thread> > threads;
 
 	opt.add_options()
 		("help,h", "show help")
@@ -32,6 +36,7 @@ int main(int argc, char **argv)
 		("local_target,l",
 		value<vector<string> >()->composing(),
 		"target procfiles(sched,nprocs)")
+		("sha_thread,s", "sha thread")
 		("output,o",
 		value<string>()->default_value("."), "output dir")
 		("duration,d", 
@@ -82,8 +87,11 @@ int main(int argc, char **argv)
 			}
 		}
 	}
+	if (vm.count("sha_thread")) {
+		init_sha_thread(vm, threads);
+	}
 	{
-		timer_runner runner(gloggers, lloggers, vm);
+		timer_runner runner(gloggers, lloggers, threads, vm);
 		runner.run();
 	}
 
